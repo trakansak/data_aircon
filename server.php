@@ -8,21 +8,21 @@ class AirCon {
    * @return string $callback
    */
   public function post_aircon($data_packet) {
-    list($room, $temp, $humidity, $time) = explode(",", $data_packet);
+    list($room, $temp, $time) = explode(",", $data_packet);
 
-    $servername = "";
-    $username = "";
-    $password = "";
-    $database = "";
+    $servername = "ol5tz0yvwp930510.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+    $username = "uohjzu4b27mw2xm6";
+    $password = "rtyq4e1iclt8vtfi";
+    $database = "rjodltazhge2pg94";
     $conn = new mysqli($servername, $username, $password, $database);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
         return "Connection failed: " . $conn->connect_error;
     }
     echo "Connected successfully";
-    $sql = "INSERT INTO aircon (room, temp, humidity) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO aircon (room, temp, timedate) VALUES (?, ?, ?)";
     if ($stmt = $conn->prepare($sql)) {
-      $stmt->bind_param('sss', $room, $temp, $humidity);
+      $stmt->bind_param('sss', $room, $temp, $time);
       $stmt->execute();
       $stmt->close();
       return "New record created successfully";
@@ -31,7 +31,7 @@ class AirCon {
     }
   }
 }
-$serverUrl = "http://127.0.0.1/select1/aircon/server.php";
+$serverUrl = "http://127.0.0.1/select1_aircon/server.php";
 $options = [
     'uri' => $serverUrl,
 ];
