@@ -25,12 +25,66 @@ class AirCon {
       $stmt->bind_param('sss', $room, $temp, $time);
       $stmt->execute();
       $stmt->close();
-      return "New record created successfully";
+      return "New record created Successfully";
     } else {
       return "Error: " . $sql . "<br>" . $conn->error;
     }
   }
+
+  public function query_aircon() {
+    // list($room, $temp, $time) = explode(",", $data_packet);
+
+    $servername = "ol5tz0yvwp930510.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+    $username = "uohjzu4b27mw2xm6";
+    $password = "rtyq4e1iclt8vtfi";
+    $database = "rjodltazhge2pg94";
+    $conn = new mysqli($servername, $username, $password, $database);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+        return "Connection failed: " . $conn->connect_error;
+    }
+    echo "Connected successfully";
+    $sql = "SELECT * FROM aircon";
+    $res = mysql_query($sql);
+    
+    $xml = new XMLWriter();
+    $xml->openURI("php://output");
+
+    $xml->startDocument();
+
+    $xml->setIndent(true);
+
+
+    $xml->startElement('countries');
+
+
+    while ($row = mysql_fetch_assoc($res)) {
+
+      $xml->startElement("country");
+
+      $xml->writeAttribute('udid', $row['udid']);
+      $xml->writeRaw($row['country']);
+
+      $xml->endElement();
+    }
+
+    $xml->endElement();
+
+
+    header('Content-type: text/xml');
+
+    $xml->flush();
+
+    if ($stmt = $conn->prepare($sql)) {
+      // $stmt->bind_param('sss', $room, $temp, $time);
+      $stmt->execute();
+      $stmt->close();
+      echo $xml;
+      return "Query Successfully";
+    }
+  }
 }
+
 $serverUrl = "http://127.0.0.1/select1_aircon/server.php";
 $options = [
     'uri' => $serverUrl,
