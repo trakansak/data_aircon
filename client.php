@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-$websev = "https://welcome-something88.herokuapp.com";
+$websev = "https://welcome-to-service44.herokuapp.com";
 $client = new Zend\Soap\Client($websev.'/server.php?wsdl');
 
 $link_to_xml_aircon = ($websev."/Aircon.xml");

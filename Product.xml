@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Product>
+  <Info>
+    <owner>Bung</owner>
+    <address>68/2</address>
+    <weight>25</weight>
+    <confirm>Delivered</confirm>
+  </Info>
+  <Info>
+    <owner>Kom</owner>
+    <address>77</address>
+    <weight>10</weight>
+    <confirm>Not Delivered</confirm>
+  </Info>
+  <Info>
+    <owner>Trakansak</owner>
+    <address>674/31</address>
+    <weight>20</weight>
+    <confirm>Not Delivered</confirm>
+  </Info>
+  <Info>
+    <id>1150</id>
+    <owner>Trakansak</owner>
+    <address>674/31</address>
+    <weight>20</weight>
+    <confirm>Not Delivered</confirm>
+  </Info>
+  <Info>
+    <id>2340</id>
+    <owner>Trakansak</owner>
+    <address>674/31</address>
+    <weight>20</weight>
+    <confirm>Delivered</confirm>
+  </Info>
+  <Info>
+    <id>1598</id>
+    <owner>Trakansak</owner>
+    <address>674/31</address>
+    <weight>20</weight>
+    <confirm>Delivered</confirm>
+  </Info>
+</Product>

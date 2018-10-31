@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
-$websev = "https://welcome-something88.herokuapp.com";
+$websev = "https://welcome-to-service44.herokuapp.com";
 $link_to_xml_aircon = ($websev."/Aircon.xml");
 $link_to_xml_personal = ($websev."/Personal.xml");
 $link_to_xml_product = ($websev."/Product.xml");
