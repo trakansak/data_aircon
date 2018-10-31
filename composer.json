@@ -1,5 +1,6 @@
 {
     "require": {
-        "zendframework/zend-soap": "^2.7"
+        "zendframework/zend-soap": "^2.7",
+        "zendframework/zend-server": "^2.8"
     }
 }

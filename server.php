@@ -1,166 +1,149 @@
 <?php
+
 require_once __DIR__ . '/vendor/autoload.php';
-class AirCon
+
+class serviceAirCond
 {
     /**
-     * Post air-condition value.
-     *
-     * @param string $data_packet
-     * @return string $callback
-     * @return object
-     */
-    public function post_aircon($data_packet)
+    *   Insert Data for AirConditioner
+    *  @param string  $room 
+    *  @param string  $time
+    *  @param string  $temp 
+    *  
+    */
+    
+    public function InsertDataAirCon($room,$time,$temp)
     {
-        list($room, $temp, $time) = explode(",", $data_packet);
-        $servername = "ol5tz0yvwp930510.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-        $username = "uohjzu4b27mw2xm6";
-        $password = "rtyq4e1iclt8vtfi";
-        $database = "rjodltazhge2pg94";
-        $conn = new mysqli($servername, $username, $password, $database);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-            return "Connection failed: " . $conn->connect_error;
-        }
-        echo "Connected successfully";
-        $sql = "INSERT INTO aircon (room, temp, timedate) VALUES (?, ?, ?)";
-        if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param('sss', $room, $temp, $time);
-            $stmt->execute();
-            $stmt->close();
-            return "New record created Successfully";
-        } else {
-            return "Error: " . $sql . "<br>" . $conn->error;
-        }
+        // header('Content-Type: text/xml');
+        $data=simplexml_load_file("http://127.0.0.1/data_aircon/Aircon.xml");
+        $aircon = $data->addChild("AirCond");
+        $aircon->addChild("room",$room);
+        $aircon->addChild("temp",$temp);
+        $aircon->addChild("time",$time);
+
+
+        $reader = new DOMDocument();
+        $reader->preserveWhiteSpace = false;
+        $reader->formatOutput = true;
+        // $reader->header("Content-Type: text/xml");
+        $reader->loadXML($data->asXML());
+        $reader->save('Aircon.xml');
+        return "Added AirConditioner";
+
     }
 
-    public function query_aircon()
+    /**
+    *   Query/Info for AirConditioner
+    *  @return string
+    */
+
+    public function QueryDataAirCon()
     {
-        // list($room, $temp, $time) = explode(",", $data_packet);
-
-        $servername = "ol5tz0yvwp930510.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-        $username = "uohjzu4b27mw2xm6";
-        $password = "rtyq4e1iclt8vtfi";
-        $database = "rjodltazhge2pg94";
-        $conn = new mysqli($servername, $username, $password, $database);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-            return "Connection failed: " . $conn->connect_error;
-        }
-        echo "Connected successfully";
-        $sql = "SELECT * FROM aircon";
-        $res = mysql_query($sql);
-
-        $xml = new XMLWriter();
-        $xml->openURI("php://output");
-
-        $xml->startDocument();
-
-        $xml->setIndent(true);
-
-        $xml->startElement('countries');
-
-        while ($row = mysql_fetch_assoc($res)) {
-
-            $xml->startElement("country");
-
-            $xml->writeAttribute('udid', $row['udid']);
-            $xml->writeRaw($row['country']);
-
-            $xml->endElement();
-        }
-
-        $xml->endElement();
-
-        header('Content-type: text/xml');
-
-        $xml->flush();
-
-        if ($stmt = $conn->prepare($sql)) {
-            // $stmt->bind_param('sss', $room, $temp, $time);
-            $stmt->execute();
-            $stmt->close();
-            echo $xml;
-            return "Query Successfully";
-        }
+        $file = simplexml_load_file('http://127.0.0.1/data_aircon/Aircon.xml');
+        // print_r($file);
+        return ($file->asXml());
     }
 
-    public function showperson()
+    /**
+    *   Info for Personal
+    *  @return string
+    */
+
+    public function showPersonal()
     {
-        // $filename = "";
-        $xml = simplexml_load_file("http://127.0.0.1/select1_aircon/showperson.xml");
-        return $xml->asXML();
+        $file = simplexml_load_file('http://127.0.0.1/data_aircon/Personal.xml');
+        return ($file->asXML());
     }
 
+    /**
+    * Insert for Product
+    * @param string     $id_product
+    * @param string     $owner_product
+    * @param string     $address_product
+    * @param string     $weight_product
+    * 
+    */
 
-    //service send_object
-
-    public function info_sendobject($data_object)
+    public function addProduct($id_product,$owner_product,$address_product,$weight_product)
     {
-      list($user, $address, $object, $confirm) = explode(",", $data_object);
-        $servername = "ol5tz0yvwp930510.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-        $username = "uohjzu4b27mw2xm6";
-        $password = "rtyq4e1iclt8vtfi";
-        $database = "rjodltazhge2pg94";
-        $conn = new mysqli($servername, $username, $password, $database);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-            return "Connection failed: " . $conn->connect_error;
-        }
-        echo "Connected successfully";
-        $sql = "INSERT INTO info_send_object (user, addresss, objects, confirm) VALUES (?, ?, ?, ?)";
-        if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param('sss', $user, $address, $object, $confirm);
-            $stmt->execute();
-            $stmt->close();
-            return "New record created Successfully";
-        } else {
-            return "Error: " . $sql . "<br>" . $conn->error;
-        }
+        // header('Content-Type: text/xml');
+        // $sure = "Not Delivered";
+        $data=simplexml_load_file("http://127.0.0.1/data_aircon/Product.xml");
+        $aircon = $data->addChild("Info");
+        $aircon->addChild("id",$id_product);
+        $aircon->addChild("owner",$owner_product);
+        $aircon->addChild("address",$address_product);
+        $aircon->addChild("weight",$weight_product);
+        $aircon->addChild("confirm","Not Delivered");
+
+
+        $reader = new DOMDocument();
+        $reader->preserveWhiteSpace = false;
+        $reader->formatOutput = true;
+        // $reader->header("Content-Type: text/xml");
+        $reader->loadXML($data->asXML());
+        $reader->save('Product.xml');
+        return "Added Product";
     }
 
-    // public function confirm_object($objects)
-    // {
-    //   $servername = "ol5tz0yvwp930510.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-    //   $username = "uohjzu4b27mw2xm6";
-    //   $password = "rtyq4e1iclt8vtfi";
-    //   $database = "rjodltazhge2pg94";
-    //   $conn = new mysqli($servername, $username, $password, $database);
-    //   if ($conn->connect_error) {
-    //       die("Connection failed: " . $conn->connect_error);
-    //       return "Connection failed: " . $conn->connect_error;
-    //   }
-    //   echo "Connected successfully";
-    //   $sql = "SELECT * FROM info_send_object Where Objects ="$object", confirm ='true'"
-    //   $res = mysql_query($sql);
-    //   if ($result->num_rows > 0) {
-    //     if ($stmt = $conn->prepare($sql)) {
-    //       $stmt->bind_param($object);
-    //     return "Object send Complete"
-    //   }
-    //   else{
-    //     return "Object send Not Complete"
-    //   }
-    // }
+    /**
+    * Validated for Product
+    * @param int    $id_product
+    * 
+    */
+
+    public function confirmProduct($id_product)
+    {
+        $data=simplexml_load_file("http://127.0.0.1/data_aircon/Product.xml");
+        foreach ($data->children() as $id_conf) {
+            if($id_conf->id == $id_product) {
+                $id_conf->confirm = "Delivered";
+            }
+        }
+        $reader = new DOMDocument();
+        $reader->preserveWhiteSpace = false;
+        $reader->formatOutput = true;
+        // $reader->header("Content-Type: text/xml");
+        $reader->loadXML($data->asXML());
+        $reader->save('Product.xml');
+        return "Complete Sent Product";
+    }
+
+    /**
+    *   Info for Product
+    *  @return string
+    */
+
+    public function queryProduct()
+    {
+        $file=simplexml_load_file("http://127.0.0.1/data_aircon/Product.xml");
+        return ($file->asXML());
+    }
+
 }
 
-$serverUrl = "http://127.0.0.1/select1_aircon/server.php";
+
+$serverUrl = "http://127.0.0.1/data_aircon/server.php";
 // $serverUrl = "http://data-aircon.herokuapp.com/server.php";
 $options = [
     'uri' => $serverUrl,
 ];
 $server = new Zend\Soap\Server(null, $options);
+
 if (isset($_GET['wsdl'])) {
     $soapAutoDiscover = new \Zend\Soap\AutoDiscover(
         new \Zend\Soap\Wsdl\ComplexTypeStrategy\ArrayOfTypeSequence());
     $soapAutoDiscover->setBindingStyle(array('style' => 'document'));
     $soapAutoDiscover->setOperationBodyStyle(array('use' => 'literal'));
-    $soapAutoDiscover->setClass('AirCon');
+    $soapAutoDiscover->setClass('serviceAirCond');
     $soapAutoDiscover->setUri($serverUrl);
 
     header("Content-Type: text/xml");
     echo $soapAutoDiscover->generate()->toXml();
 } else {
     $soap = new \Zend\Soap\Server($serverUrl . '?wsdl');
-    $soap->setObject(new \Zend\Soap\Server\DocumentLiteralWrapper(new AirCon()));
+    $soap->setObject(new \Zend\Soap\Server\DocumentLiteralWrapper(new serviceAirCond()));
     $soap->handle();
 }
+
+?>
