@@ -1,10 +1,6 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
-$websev = "https://welcome-to-service44.herokuapp.com";
-$link_to_xml_aircon = ($websev."/Aircon.xml");
-$link_to_xml_personal = ($websev."/Personal.xml");
-$link_to_xml_product = ($websev."/Product.xml");
 
 class serviceAirCond
 {
@@ -19,7 +15,7 @@ class serviceAirCond
     public function InsertDataAirCon($room,$time,$temp)
     {
         // header('Content-Type: text/xml');
-        $data=simplexml_load_file($link_to_xml_aircon);
+        $data=simplexml_load_file("https://welcome-to-service44.herokuapp.com/Aircon.xml");
         $aircon = $data->addChild("AirCond");
         $aircon->addChild("room",$room);
         $aircon->addChild("temp",$temp);
@@ -43,7 +39,7 @@ class serviceAirCond
 
     public function QueryDataAirCon()
     {
-        $file = simplexml_load_file($link_to_xml_aircon);
+        $file = simplexml_load_file('https://welcome-to-service44.herokuapp.com/Aircon.xml');
         // print_r($file);
         return ($file->asXml());
     }
@@ -55,7 +51,7 @@ class serviceAirCond
 
     public function showPersonal()
     {
-        $file = simplexml_load_file($link_to_xml_personal);
+        $file = simplexml_load_file('https://welcome-to-service44.herokuapp.com/Personal.xml');
         return ($file->asXML());
     }
 
@@ -72,7 +68,7 @@ class serviceAirCond
     {
         // header('Content-Type: text/xml');
         // $sure = "Not Delivered";
-        $data=simplexml_load_file($link_to_xml_product);
+        $data=simplexml_load_file("https://welcome-to-service44.herokuapp.com/Product.xml");
         $aircon = $data->addChild("Info");
         $aircon->addChild("id",$id_product);
         $aircon->addChild("owner",$owner_product);
@@ -98,7 +94,7 @@ class serviceAirCond
 
     public function confirmProduct($id_product)
     {
-        $data=simplexml_load_file($link_to_xml_product);
+        $data=simplexml_load_file("https://welcome-to-service44.herokuapp.com/Product.xml");
         foreach ($data->children() as $id_conf) {
             if($id_conf->id == $id_product) {
                 $id_conf->confirm = "Delivered";
@@ -120,14 +116,14 @@ class serviceAirCond
 
     public function queryProduct()
     {
-        $file=simplexml_load_file($link_to_xml_product);
+        $file=simplexml_load_file("https://welcome-to-service44.herokuapp.com/Product.xml");
         return ($file->asXML());
     }
 
 }
 
 
-$serverUrl = ($websev."/server.php");
+$serverUrl = "https://welcome-to-service44.herokuapp.com/server.php";
 // $serverUrl = "http://data-aircon.herokuapp.com/server.php";
 $options = [
     'uri' => $serverUrl,

@@ -1,6 +1,9 @@
 <?php
-$websev = "https://welcome-to-service44.herokuapp.com";
-echo "Welcome to Air conditioners , Hobby and  Delivery Product\n";
-echo ($websev."server.php?wsdl\n");
-echo ($websev."client.php?wsdl\n");
+
+echo "Welcome to Air conditioners";
+echo ("<br>");
+echo ("<a href='https://welcome-to-service44.herokuapp.com/server.php?wsdl'>Click here to looking service</a>");
+echo ("<br>");
+echo ("<a href='https://welcome-to-service44.herokuapp.com/client.php?wsdl'>Click here to this service</a>");
+
 ?>

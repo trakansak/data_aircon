@@ -1,11 +1,11 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-$websev = "https://welcome-to-service44.herokuapp.com";
-$client = new Zend\Soap\Client($websev.'/server.php?wsdl');
 
-$link_to_xml_aircon = ($websev."/Aircon.xml");
-$link_to_xml_personal = ($websev."/Personal.xml");
-$link_to_xml_product = ($websev."/Product.xml");
+$client = new Zend\Soap\Client('https://welcome-to-service44.herokuapp.com/server.php?wsdl');
+
+$link_to_xml_aircon = "https://welcome-to-service44.herokuapp.com/Aircon.xml";
+$link_to_xml_personal = "https://welcome-to-service44.herokuapp.com/Personal.xml";
+$link_to_xml_product = "https://welcome-to-service44.herokuapp.com/Product.xml";
 
 
 /** 
@@ -70,19 +70,19 @@ $link_to_xml_product = ($websev."/Product.xml");
 		Confirm Delivery for Product
 	*/
 
-	$result = $client->confirmProduct(['id_product'=> 1598]);
-	echo ("Confirm Product");
-	echo $result['confirmProductResult'];
-	echo ("<br>");
-	echo ("<a href='".$link_to_xml_product."'>Click here to XML Product</a>");
+	// $result = $client->confirmProduct(['id_product'=> 1598]);
+	// echo ("Confirm Product");
+	// echo $result['confirmProductResult'];
+	// echo ("<br>");
+	// echo ("<a href='".$link_to_xml_product."'>Click here to XML Product</a>");
 
 
 	/**
 		Query Delivery for Product
 	*/
-	// header("Content-Type: text/xml");
-	// $result = $client->queryProduct();
-	// echo $result->queryProductResult;
+	header("Content-Type: text/xml");
+	$result = $client->queryProduct();
+	echo $result->queryProductResult;
 
 
 ?>
