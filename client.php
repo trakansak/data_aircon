@@ -1,11 +1,11 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 $websev = "https://welcome-something88.herokuapp.com";
-$client = new Zend\Soap\Client($websev.'/data_aircon/server.php?wsdl');
+$client = new Zend\Soap\Client($websev.'/server.php?wsdl');
 
-$link_to_xml_aircon = ($websev."/data_aircon/Aircon.xml");
-$link_to_xml_personal = ($websev."/data_aircon/Personal.xml");
-$link_to_xml_product = ($websev."/data_aircon/Product.xml");
+$link_to_xml_aircon = ($websev."/Aircon.xml");
+$link_to_xml_personal = ($websev."/Personal.xml");
+$link_to_xml_product = ($websev."/Product.xml");
 
 
 /** 

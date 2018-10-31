@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 $websev = "https://welcome-something88.herokuapp.com";
-$link_to_xml_aircon = ($websev."/data_aircon/Aircon.xml");
-$link_to_xml_personal = ($websev."/data_aircon/Personal.xml");
-$link_to_xml_product = ($websev."/data_aircon/Product.xml");
+$link_to_xml_aircon = ($websev."/Aircon.xml");
+$link_to_xml_personal = ($websev."/Personal.xml");
+$link_to_xml_product = ($websev."/Product.xml");
 
 class serviceAirCond
 {
@@ -127,7 +127,7 @@ class serviceAirCond
 }
 
 
-$serverUrl = ($websev."/data_aircon/server.php");
+$serverUrl = ($websev."/server.php");
 // $serverUrl = "http://data-aircon.herokuapp.com/server.php";
 $options = [
     'uri' => $serverUrl,
